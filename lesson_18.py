@@ -1,0 +1,15 @@
+import pandas as pd
+
+df = pd.read_csv('apartments_dirty.csv')
+#print(df.isna())
+#print(df.isna().sum())
+#print(df.duplicated())
+#print(df.duplicated().sum())
+#print(df)
+clean=df.drop_duplicates()
+clean=clean.dropna(subset=["price"]).copy()
+median_area=clean["area"].median()
+clean["area"]=clean["area"].fillna(median_area)
+clean.to_csv("apartments_clean.csv",index=False)
+df_2=pd.read_csv("apartments_clean.csv")
+print(df_2)
